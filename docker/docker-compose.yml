@@ -1,0 +1,27 @@
+# docker/docker-compose.yml
+
+version: '3.8'
+
+services:
+  micro_product:
+    # El 'build' es lo más importante para el desarrollo local
+    build:
+      # El contexto debe ser el directorio raíz del proyecto para encontrar la carpeta 'target'
+      context: .. 
+      dockerfile: docker/Dockerfile # La ruta al Dockerfile desde el contexto
+    
+    # Opcional: Dale un nombre a la imagen que se construye localmente
+    image: micro-product-local 
+    
+    container_name: product_app
+    
+    ports:
+      # Mapea el puerto 8086 de tu máquina al 8080 del contenedor
+      - "8086:8080"
+    
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: micro_product_net
