@@ -35,7 +35,7 @@ jobs:
           mvn sonar:sonar \
             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} \
             -Dsonar.host.url=${{ env.SONAR_HOST_URL }} \
-            -Dsonar.token=${{ env.SONAR_TOKEN }} # <-- CORREGIDO: Usa sonar.token
+            -Dsonar.login=${{ env.SONAR_TOKEN }}
 
       - name: 🚀 Despliegue con Docker Compose
         run: |
