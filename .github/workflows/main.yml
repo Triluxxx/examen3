@@ -44,8 +44,11 @@ jobs:
 
       - name: 🏗 Construir imagen Docker para linux/amd64
         run: |
-          cd docker
-          docker buildx build --platform linux/amd64 -t $APP_CONTAINER_NAME . --load
+          docker buildx build \
+            --platform linux/amd64 \
+            -f docker/Dockerfile \
+            -t $APP_CONTAINER_NAME . \
+            --load
 
       - name: 🚀 Ejecutar contenedor con Docker Compose
         run: |
