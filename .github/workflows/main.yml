@@ -37,11 +37,21 @@ jobs:
             -Dsonar.host.url=${{ env.SONAR_HOST_URL }} \
             -Dsonar.login=${{ env.SONAR_TOKEN }}
 
-      - name: 🚀 Despliegue con Docker Compose
+      - name: 🔧 Crear y configurar Docker Buildx
+        run: |
+          docker buildx create --use --name builder-product || true
+          docker buildx inspect --bootstrap
+
+      - name: 🏗 Construir imagen Docker para linux/amd64
+        run: |
+          cd docker
+          docker buildx build --platform linux/amd64 -t $APP_CONTAINER_NAME . --load
+
+      - name: 🚀 Ejecutar contenedor con Docker Compose
         run: |
           echo "🔧 Desplegando aplicación..."
           cd docker
           docker-compose -p $DOCKER_PROJECT_NAME down -v --remove-orphans || true
-          docker-compose -p $DOCKER_PROJECT_NAME up -d --build
+          docker-compose -p $DOCKER_PROJECT_NAME up -d
           echo "📋 Logs recientes:"
           docker logs --tail 50 $APP_CONTAINER_NAME
