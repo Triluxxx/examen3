@@ -7,7 +7,7 @@ on:
 
 env:
   DOCKER_PROJECT_NAME: product_app
-  APP_CONTAINER_NAME: product_app_2025
+  APP_CONTAINER_NAME: product_app
   SONAR_PROJECT_KEY: product-app
   SONAR_HOST_URL: http://localhost:9000
   SONAR_TOKEN: squ_ec8c571ffccc3df892aa2ca39364168cb460b048
